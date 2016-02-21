@@ -22,7 +22,7 @@ public class CustomerRepositoryTest {
 
     @Test
     public void testFindAll() throws Exception {
-        cr.save(new Builder().setId(1L).setName("Vasya").build());
+        cr.save(new Builder().setId(1L).setName("Vasya").build()); // TODO use proper builder
         cr.save(new Builder().setId(2L).setName("Petya").build());
 
         List<Customer> all = cr.findAll();

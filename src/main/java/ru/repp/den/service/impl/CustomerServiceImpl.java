@@ -19,22 +19,6 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public List<CustomerDTO> getAll() {
-        Customer c = new Customer();
-        c.setName("Vasya");
-        c.setActive(true);
-        c.setPwdHash("QWQEQWEQWE");
-        c.setLogin("Vasya_SuperMan");
-        c.setBalance(100.5f);
-
-        Customer c2 = new Customer();
-        c2.setName("Olya");
-        c2.setActive(false);
-        c2.setPwdHash("ASDASDASD");
-        c2.setLogin("Olya_SuperMan");
-        c2.setBalance(200.5f);
-        customerRepository.save(c);
-        customerRepository.save(c2);
-
         List<Customer> all = customerRepository.findAll();
         return all.stream().map(CustomerConverter::toDTO).collect(Collectors.toList());
     }

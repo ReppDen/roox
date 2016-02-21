@@ -58,7 +58,7 @@ public class CustomerServiceImplTest {
         });
     }
 
-    // TODO fill all data
+    // TODO use proper builder
     class Builder {
         private Long id;
         private String name;
