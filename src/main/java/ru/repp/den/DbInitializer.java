@@ -36,7 +36,8 @@ public class DbInitializer {
                     .setName(customerBaseName + i)
                     .setActive(i % 2 == 0)
                     .setBalance(r.nextFloat()*100)
-                    .setPwdHash(UUID.randomUUID().toString())
+//                    .setPwdHash(UUID.randomUUID().toString())
+                    .setPwdHash("pass")
                     .setLogin(customerBaseLogin+i)
                     .build());
         }
