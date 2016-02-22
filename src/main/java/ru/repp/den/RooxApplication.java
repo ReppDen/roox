@@ -20,7 +20,6 @@ public class RooxApplication {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                // forward requests to /admin and /user to their index.html
                 registry.addViewController("/").setViewName(
                         "forward:/index.html");
             }
@@ -34,7 +33,8 @@ public class RooxApplication {
     /** todo list:
      * thymeleaf in POM
      * current user in Customer Service
-     * move PMS calls to PartnerController
+     * exception handler
+     * move convertations to rest
      *
      */
 }

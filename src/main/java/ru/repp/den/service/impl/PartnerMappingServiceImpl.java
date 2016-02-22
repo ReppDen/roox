@@ -59,6 +59,15 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
     }
 
     @Override
+    public List<PartnerMappingDTO> getMappingsByCustomerId(String id) {
+        Customer c = cs.getCustomerById(id);
+        if (c == null) {
+            throw new RestClientException("Find a Partner Mapping. The Customer is not found for ID " + id);
+        }
+        return c.getPartnerMapping().stream().map(PartnerMappingConverter::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteMapping(String id, Long mapId) {
         Customer c = cs.getCustomerById(id);
         if (c == null) {

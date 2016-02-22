@@ -13,6 +13,8 @@ public interface PartnerMappingService {
 
     PartnerMappingDTO updateMapping(String id, Long mapId, PartnerMappingDTO mapping);
 
+    List<PartnerMappingDTO> getMappingsByCustomerId(String id);
+
     void deleteMapping(String id, Long mapId);
 
     PartnerMappingDTO getMappingById(String customerId, Long mapId);
