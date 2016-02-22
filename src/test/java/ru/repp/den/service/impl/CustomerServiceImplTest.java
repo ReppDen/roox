@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.NumberUtils;
 import ru.repp.den.RooxApplication;
 import ru.repp.den.dto.CustomerDTO;
 import ru.repp.den.entity.Customer;
@@ -56,5 +57,9 @@ public class CustomerServiceImplTest {
             Optional<Customer> customerOpt = customers.stream().filter((customer -> customer.getId().equals(dto.getId()))).findFirst();
             assertNotNull(customerOpt.get());
         });
+    }
+
+    @Test
+    public void testGetById() {
     }
 }

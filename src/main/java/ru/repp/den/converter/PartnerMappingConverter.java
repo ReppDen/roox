@@ -12,7 +12,7 @@ public class PartnerMappingConverter {
 
     public static PartnerMappingDTO toDTO(PartnerMapping partnerMapping) {
         if (partnerMapping == null) {
-            return new PartnerMappingDTO();
+            return null;
         }
         PartnerMappingDTO.Builder builder = PartnerMappingDTO.newBuilder();
         builder.setId(partnerMapping.getId());
@@ -21,5 +21,14 @@ public class PartnerMappingConverter {
         builder.setAccount(partnerMapping.getAccount());
         builder.setCustomer(CustomerConverter.toDTO(partnerMapping.getCustomer()));
         return builder.build();
+    }
+
+    public static PartnerMapping toEntity (PartnerMappingDTO dto) {
+        PartnerMapping pm = new PartnerMapping();
+        pm.setPartnerId(dto.getPartnerId());
+        pm.setFullName(dto.getFullName());
+        pm.setAccount(dto.getAccount());
+        pm.setId(dto.getId());
+        return pm;
     }
 }

@@ -15,4 +15,6 @@ public interface CustomerService {
     CustomerDTO getByLogin(String login);
 
     List<PartnerMappingDTO> getMappingsByCustomerId(String id);
+
+    Customer getCustomerById(String id);
 }

@@ -1,17 +1,17 @@
 package ru.repp.den.service.impl;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import ru.repp.den.converter.CustomerConverter;
 import ru.repp.den.converter.PartnerMappingConverter;
 import ru.repp.den.dto.CustomerDTO;
 import ru.repp.den.dto.PartnerMappingDTO;
 import ru.repp.den.entity.Customer;
-import ru.repp.den.entity.PartnerMapping;
 import ru.repp.den.repo.CustomerRepository;
 import ru.repp.den.service.CustomerService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,18 +42,24 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<PartnerMappingDTO> getMappingsByCustomerId(String id) {
         Customer c = getCustomerById(id);
-        List<PartnerMappingDTO> res = new ArrayList<>();
-        if (c != null) {
-            res = c.getPartnerMapping().stream().map(PartnerMappingConverter::toDTO).collect(Collectors.toList());
+        if (c == null) {
+            throw new RestClientException("Find a Partner Mapping. The Customer is not found for ID " + id);
         }
-        return  res;
+        return c.getPartnerMapping().stream().map(PartnerMappingConverter::toDTO).collect(Collectors.toList());
     }
 
-    private Customer getCustomerById(String id) {
+    @Override
+    public Customer getCustomerById(String id) {
+        if (id == null) {
+            throw new RestClientException("Customer ID cannot be null");
+        }
         if (ME_LITERAL.equalsIgnoreCase(id)) {
             // TODO get current user
             return null;
         } else {
+            if (!NumberUtils.isNumber(id)) {
+                throw new RestClientException("Customer ID is not a number of \"@me\" string");
+            }
             return customerRepository.findById(Long.parseLong(id));
         }
     }

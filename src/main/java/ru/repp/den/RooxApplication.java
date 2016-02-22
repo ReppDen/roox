@@ -34,5 +34,7 @@ public class RooxApplication {
     /** todo list:
      * thymeleaf in POM
      * current user in Customer Service
+     * move PMS calls to PartnerController
+     *
      */
 }

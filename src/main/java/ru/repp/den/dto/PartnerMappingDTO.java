@@ -1,5 +1,6 @@
 package ru.repp.den.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ru.repp.den.entity.Customer;
@@ -10,14 +11,19 @@ import javax.persistence.*;
 @Setter
 public class PartnerMappingDTO {
 
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("customer")
     private CustomerDTO customer;
 
+    @JsonProperty("partnerId")
     private Long partnerId;
 
+    @JsonProperty("account")
     private String account;
 
+    @JsonProperty("fullName")
     private String fullName;
 
     // TODO save objects

@@ -11,12 +11,8 @@ import java.util.stream.Collectors;
 public class CustomerConverter {
 
     public static CustomerDTO toDTO(Customer customer) {
-        return toDTO(customer, false);
-    }
-
-    public static CustomerDTO toDTO(Customer customer, boolean deep) {
         if (customer == null) {
-            return new CustomerDTO();
+            return null;
         }
         CustomerDTO.Builder builder = CustomerDTO.newBuilder();
         builder.setId(customer.getId());
@@ -25,9 +21,6 @@ public class CustomerConverter {
         builder.setActive(customer.getActive());
         builder.setPwdHash(customer.getPwdHash());
         builder.setLogin(customer.getLogin());
-        if (deep) {
-            builder.setPartnerMappingDTOs(customer.getPartnerMapping().stream().map(PartnerMappingConverter::toDTO).collect(Collectors.toList()));
-        }
         return builder.build();
     }
 }
