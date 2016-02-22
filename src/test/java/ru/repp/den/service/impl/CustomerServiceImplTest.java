@@ -43,9 +43,9 @@ public class CustomerServiceImplTest {
     @Test
     public void testGetAll() throws Exception {
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Builder().setId(1L).setName("Vasya1").build());
-        customers.add(new Builder().setId(2L).setName("Vasya2").build());
-        customers.add(new Builder().setId(3L).setName("Vasya3").build());
+        customers.add(Customer.newBuilder().setId(1L).setName("Vasya1").build());
+        customers.add(Customer.newBuilder().setId(2L).setName("Vasya2").build());
+        customers.add(Customer.newBuilder().setId(3L).setName("Vasya3").build());
         Mockito.when(cr.findAll()).thenReturn(customers);
 
         List<CustomerDTO> all = cs.getAll();
@@ -56,28 +56,5 @@ public class CustomerServiceImplTest {
             Optional<Customer> customerOpt = customers.stream().filter((customer -> customer.getId().equals(dto.getId()))).findFirst();
             assertNotNull(customerOpt.get());
         });
-    }
-
-    // TODO use proper builder
-    class Builder {
-        private Long id;
-        private String name;
-
-        public Builder setId(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Customer build() {
-            Customer c = new Customer();
-            c.setId(id);
-            c.setName(name);
-            return c;
-        }
     }
 }
