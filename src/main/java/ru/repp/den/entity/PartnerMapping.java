@@ -10,10 +10,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@SequenceGenerator(name="seq", initialValue=1)
 public class PartnerMapping {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

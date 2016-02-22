@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CustomerDTO {
@@ -27,6 +29,9 @@ public class CustomerDTO {
     @JsonProperty("active")
     private Boolean active;
 
+    @JsonProperty("mappings")
+    private List<PartnerMappingDTO> partnerMappingDTOs;
+
     public static Builder newBuilder() {
         return new CustomerDTO().new Builder();
     }
@@ -43,6 +48,8 @@ public class CustomerDTO {
         private String pwdHash;
 
         private Boolean active;
+
+        private List<PartnerMappingDTO> partnerMappingDTOs;
 
         private Builder() {}
 
@@ -76,6 +83,11 @@ public class CustomerDTO {
             return this;
         }
 
+        public Builder setPartnerMappingDTOs(List<PartnerMappingDTO> partnerMappingDTOs) {
+            this.partnerMappingDTOs = partnerMappingDTOs;
+            return this;
+        }
+
         public CustomerDTO build() {
             CustomerDTO c = new CustomerDTO();
             c.setId(id);
@@ -84,6 +96,7 @@ public class CustomerDTO {
             c.setLogin(login);
             c.setPwdHash(pwdHash);
             c.setActive(active);
+            c.setPartnerMappingDTOs(partnerMappingDTOs);
             return c;
         }
     }

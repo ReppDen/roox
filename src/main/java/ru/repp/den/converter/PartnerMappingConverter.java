@@ -11,6 +11,9 @@ import ru.repp.den.entity.PartnerMapping;
 public class PartnerMappingConverter {
 
     public static PartnerMappingDTO toDTO(PartnerMapping partnerMapping) {
+        if (partnerMapping == null) {
+            return new PartnerMappingDTO();
+        }
         PartnerMappingDTO.Builder builder = PartnerMappingDTO.newBuilder();
         builder.setId(partnerMapping.getId());
         builder.setFullName(partnerMapping.getFullName());

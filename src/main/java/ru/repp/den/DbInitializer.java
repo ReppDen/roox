@@ -28,24 +28,25 @@ public class DbInitializer {
 
     @PostConstruct
     public void fillDb() {
+        String customerBaseName = "Customer full name ";
+        String customerBaseLogin = "Login";
         Random r = new Random();
         for (int i=0;i< CUSTOMERS_AMOUNT;i++) {
             cr.save(Customer.newBuilder()
-                    .setName("Customer full name " + i)
+                    .setName(customerBaseName + i)
                     .setActive(i % 2 == 0)
                     .setBalance(r.nextFloat()*100)
                     .setPwdHash(UUID.randomUUID().toString())
-                    .setLogin("Login"+i)
+                    .setLogin(customerBaseLogin+i)
                     .build());
         }
 
         for (int i = 0; i < MAPPINGS_AMOUNT; i++) {
-
-            Customer c = cr.findById(Math.abs(r.nextLong()) % CUSTOMERS_AMOUNT + 1);
+            Customer c = cr.findByLogin(customerBaseLogin + (Math.abs(r.nextLong()) % CUSTOMERS_AMOUNT));
             PartnerMapping pm = PartnerMapping.newBuilder()
                     .setAccount("account"+i)
                     .setFullName("External " + c.getName())
-                    .setPartnerId(Math.abs(r.nextLong())%1000)
+                    .setPartnerId(Math.abs(r.nextLong()) % 1000)
                     .setCustomer(c)
                     .build();
 

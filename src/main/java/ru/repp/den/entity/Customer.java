@@ -3,18 +3,17 @@ package ru.repp.den.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@SequenceGenerator(name="seq", initialValue=1)
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @Column
@@ -23,7 +22,7 @@ public class Customer {
     @Column
     private Float balance;
 
-    @Column
+    @Column(unique = true)
     private String login;
 
     @Column
@@ -31,6 +30,9 @@ public class Customer {
 
     @Column
     private Boolean active;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    private List<PartnerMapping> partnerMapping;
 
     public static Builder newBuilder() {
         return new Customer().new Builder();

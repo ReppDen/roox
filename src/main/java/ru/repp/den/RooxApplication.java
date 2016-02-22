@@ -30,4 +30,9 @@ public class RooxApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RooxApplication.class, args);
 	}
+
+    /** todo list:
+     * thymeleaf in POM
+     * current user in Customer Service
+     */
 }
