@@ -1,12 +1,16 @@
 package ru.repp.den.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.repp.den.dto.CustomerDTO;
 import ru.repp.den.dto.PartnerMappingDTO;
 import ru.repp.den.service.CustomerService;
 import ru.repp.den.service.PartnerMappingService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
