@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.repp.den.entity.Customer;
 import ru.repp.den.repo.CustomerRepository;
+import ru.repp.den.security.CustomerUserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,63 +40,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Customer user = userRepository.findByLogin(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
-		}
-
-//		return new CustomerUserDetails(user);
-//        UserDetails userDetails = new User(user.getLogin(),user.getPwdHash(),roles);
-        return new CustomerUserDetails(user);
-	}
-
-	private final static class CustomerUserDetails extends Customer implements UserDetails {
-
-		private static final long serialVersionUID = 1L;
-
-		private CustomerUserDetails(Customer user) {
-            super();
-            this.setName(user.getName());
-            this.setLogin(user.getLogin());
-            this.setPwdHash(user.getPwdHash());
-		}
-
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            Set<GrantedAuthority> roles = new HashSet<>();
-            roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-            return roles;
+        CustomerUserDetails customerUserDetails = null;
+        if (user != null) {
+            customerUserDetails = new CustomerUserDetails(user);
         }
+        return customerUserDetails;
+    }
 
-        @Override
-        public String getPassword() {
-            return this.getPwdHash();
-        }
 
-        @Override
-        public String getUsername() {
-            return this.getLogin();
-        }
-
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isAccountNonLocked() {
-            return true; // todo replace with staus
-        }
-
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
-
-	}
 
 }

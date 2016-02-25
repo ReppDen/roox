@@ -1,6 +1,8 @@
 package ru.repp.den;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.repp.den.entity.Customer;
 import ru.repp.den.entity.PartnerMapping;
@@ -23,6 +25,9 @@ public class DbInitializer {
     @Autowired
     CustomerRepository cr;
 
+//    @Autowired
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     PartnerMappingRepository pmr;
 
@@ -35,10 +40,10 @@ public class DbInitializer {
             cr.save(Customer.newBuilder()
                     .setName(customerBaseName + i)
                     .setActive(i % 2 == 0)
-                    .setBalance(r.nextFloat()*100)
+                    .setBalance(r.nextFloat() * 100)
 //                    .setPwdHash(UUID.randomUUID().toString())
-                    .setPwdHash("pass")
-                    .setLogin(customerBaseLogin+i)
+                    .setPwdHash(passwordEncoder.encode("pass"))
+                    .setLogin(customerBaseLogin + i)
                     .build());
         }
 
