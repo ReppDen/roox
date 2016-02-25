@@ -7,7 +7,6 @@ import org.springframework.web.client.RestClientException;
 import ru.repp.den.entity.Customer;
 import ru.repp.den.repo.CustomerRepository;
 import ru.repp.den.service.UserService;
-import sun.rmi.server.UnicastServerRef;
 
 @Service
 public class UserServiceImpl implements UserService{

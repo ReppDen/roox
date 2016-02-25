@@ -27,6 +27,7 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
     @Autowired
     UserService us;
 
+
     @Override
     public List<PartnerMappingDTO> getAll() {
         List<PartnerMapping> all = pmr.findAll();
