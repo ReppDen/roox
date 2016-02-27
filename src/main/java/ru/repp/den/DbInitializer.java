@@ -21,7 +21,7 @@ import java.util.Random;
 @Component
 public class DbInitializer {
 
-    public static final int CUSTOMERS_AMOUNT = 10;
+    public static final int CUSTOMERS_AMOUNT = 70;
     public static final int MAPPINGS_AMOUNT = 20;
 
     @Autowired
@@ -42,7 +42,7 @@ public class DbInitializer {
     @PostConstruct
     public void fillDb() throws IOException {
         String customerBaseName = "Customer full name ";
-        String customerBaseLogin = "Login";
+        String customerBaseLogin = "User";
 
         for (int i=0;i< CUSTOMERS_AMOUNT;i++) {
 

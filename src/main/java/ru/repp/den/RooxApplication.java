@@ -1,7 +1,6 @@
 package ru.repp.den;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -19,17 +18,8 @@ public class RooxApplication {
 
     /** todo list:
      *
-     * use token i nsecurity
-     * exception handler
-     * move convertations to rest
-     * avatar saving
-     *
-     *
-     * file upload
-     * file save with new name
-     * save the name to the PM
-     * rest to get image by PM_ID
-     * trash manager
+     * restrict the logic to current user only
+     * use manual atomic sequence
      *
      */
 }

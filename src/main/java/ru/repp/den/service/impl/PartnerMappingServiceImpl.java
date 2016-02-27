@@ -14,7 +14,6 @@ import ru.repp.den.exception.BadRequestException;
 import ru.repp.den.exception.EntityNotFoundException;
 import ru.repp.den.exception.InternalErrorException;
 import ru.repp.den.repo.PartnerMappingRepository;
-import ru.repp.den.service.CustomerService;
 import ru.repp.den.service.PartnerMappingService;
 import ru.repp.den.service.UserService;
 
@@ -33,11 +32,7 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
     PartnerMappingRepository pmr;
 
     @Autowired
-    CustomerService cs;
-
-    @Autowired
     UserService us;
-
 
     @Override
     public List<PartnerMappingDTO> getAll() {
@@ -52,6 +47,7 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
             throw new BadRequestException("Cannot create a Partner Mapping. The customer is not found for ID " + id);
         }
         PartnerMapping pm = PartnerMappingConverter.toEntity(mapping);
+        pm.setId(null);
         pm.setCustomer(c);
         PartnerMapping saveRes = pmr.save(pm);
         return PartnerMappingConverter.toDTO(saveRes);
@@ -67,9 +63,17 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
         if (mapId == null) {
             throw new RestClientException("Cannot update a Partner Mapping. Mapping ID is null");
         }
-        mapping.setId(mapId);
-        PartnerMapping pm = PartnerMappingConverter.toEntity(mapping);
-        pm.setCustomer(c);
+        PartnerMapping existingPm = pmr.findOne(mapId);
+        PartnerMapping pm;
+        if (existingPm == null) {
+            // create new record
+            mapping.setId(mapId);
+            pm = PartnerMappingConverter.toEntity(mapping);
+            pm.setCustomer(c);
+        } else {
+            // update existing record
+            pm = PartnerMappingConverter.appendToEntity(mapping, existingPm);
+        }
         PartnerMapping saveRes = pmr.save(pm);
         return PartnerMappingConverter.toDTO(saveRes);
     }

@@ -2,10 +2,12 @@ package ru.repp.den.service.impl;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import ru.repp.den.entity.Customer;
+import ru.repp.den.exception.BadRequestException;
 import ru.repp.den.repo.CustomerRepository;
+import ru.repp.den.security.CustomerUserDetails;
 import ru.repp.den.service.UserService;
 
 @Service
@@ -19,26 +21,18 @@ public class UserServiceImpl implements UserService{
     @Override
     public Customer getCustomerById(String id) {
         if (id == null) {
-            throw new RestClientException("Customer ID cannot be null");
+            throw new BadRequestException("Customer ID cannot be null");
         }
         if (ME_LITERAL.equalsIgnoreCase(id)) {
             // TODO get current user
-            return null;
+            CustomerUserDetails principal = (CustomerUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return customerRepository.findById(principal.getId());
         } else {
             if (!NumberUtils.isNumber(id)) {
-                throw new RestClientException("Customer ID is not a number of \"@me\" string");
+                throw new BadRequestException("Customer ID is not a number or \"@me\" string");
             }
             return customerRepository.findById(Long.parseLong(id));
         }
     }
 
-    @Override
-    public Customer getUser(String login) {
-//        Customer user = customerRepository.findByLogin(login);
-        Customer user = new Customer();
-        user.setLogin(login);
-        user.setPwdHash("7110eda4d09e062aa5e4a390b0a572ac0d2c0220");
-
-        return user;
-    }
 }

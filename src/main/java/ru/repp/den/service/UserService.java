@@ -4,6 +4,4 @@ import ru.repp.den.entity.Customer;
 
 public interface UserService {
     Customer getCustomerById(String id);
-
-    Customer getUser(String login);
 }
