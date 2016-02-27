@@ -1,11 +1,9 @@
 package ru.repp.den.rest;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
@@ -13,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
-public class LoginController {
+public class MvcController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public String loginPage(Model model){
@@ -31,6 +29,11 @@ public class LoginController {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("name", principal.getName());
         return map;
+    }
+
+    @RequestMapping("/upload")
+    public String uploadForm() {
+        return "uploadForm";
     }
 
 }

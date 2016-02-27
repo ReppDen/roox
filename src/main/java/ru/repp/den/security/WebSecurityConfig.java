@@ -43,18 +43,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .headers()
                 .frameOptions().sameOrigin()
-                .httpStrictTransportSecurity().disable().and()
+                .httpStrictTransportSecurity().disable().and() // make h2-console works
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
-//                .formLogin() //todo try to use toked CSRF??
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll()
         ;
     }
 }

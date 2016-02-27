@@ -3,13 +3,16 @@ package ru.repp.den.converter;
 import ru.repp.den.dto.CustomerDTO;
 import ru.repp.den.entity.Customer;
 
-import java.util.stream.Collectors;
-
 /**
  * class to convert Entity objects to DTO
  */
 public class CustomerConverter {
 
+    /**
+     * Transforms {@link Customer} entity to DTO for usage in REST services
+     * @param customer entity to transform
+     * @return DTO object
+     */
     public static CustomerDTO toDTO(Customer customer) {
         if (customer == null) {
             return null;

@@ -5,11 +5,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.repp.den.dto.PartnerMappingDTO;
+import ru.repp.den.exception.MethodNotSupportedException;
 import ru.repp.den.service.PartnerMappingService;
 
-import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
-import java.io.*;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,11 +18,6 @@ public class PartnerMappingController {
 
     @Autowired
     PartnerMappingService pms;
-
-    @RequestMapping("/mapping")
-    public List<PartnerMappingDTO> getAll() {
-        return pms.getAll();
-    }
 
     @RequestMapping(value = "/customers/{id}/mappings", method = RequestMethod.GET)
     public List<PartnerMappingDTO> getMappingsByCustomerId(@PathVariable String id) {
@@ -49,9 +44,6 @@ public class PartnerMappingController {
         pms.deleteMapping(id, mapId);
     }
 
-    @Autowired
-    ServletContext context;
-
     @ResponseBody
     @RequestMapping(value = "/customers/{id}/mappings/{mapId}/avatar", method = RequestMethod.GET, produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
     public byte[] getAvatar(@PathVariable String id,
@@ -61,16 +53,15 @@ public class PartnerMappingController {
 
     @RequestMapping(value = "/customers/{id}/mappings/{mapId}/avatar", method = RequestMethod.POST)
     public void uploadNewAvatar(@PathVariable String id,
-                                 @PathVariable Long mapId,
-                                 @RequestParam("file") MultipartFile file) {
+                                @PathVariable Long mapId,
+                                @RequestParam("file") MultipartFile file) {
         pms.createAvatarForMapping(id, mapId, file);
     }
 
     @RequestMapping(value = "/customers/{id}/mappings/{mapId}/avatar", method = RequestMethod.PUT)
     public void updateAvatar(@PathVariable String id,
-                                @PathVariable Long mapId,
-                                @RequestParam("file") MultipartFile file) {
-        pms.updateAvatarForMapping(id, mapId, file);
+                             @PathVariable Long mapId) {
+        throw new MethodNotSupportedException("Http method PUT is not allowed to tranfser multipart data. Cannot upload the file");
     }
 
     @RequestMapping(value = "/customers/{id}/mappings/{mapId}/avatar", method = RequestMethod.DELETE)
@@ -78,6 +69,8 @@ public class PartnerMappingController {
                              @PathVariable Long mapId) {
         pms.deleteAvatarFromMapping(id, mapId);
     }
+
+
 
 
 }

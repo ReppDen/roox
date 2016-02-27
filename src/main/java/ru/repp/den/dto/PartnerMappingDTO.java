@@ -3,9 +3,6 @@ package ru.repp.den.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import ru.repp.den.entity.Customer;
-
-import javax.persistence.*;
 
 @Getter
 @Setter
@@ -25,10 +22,6 @@ public class PartnerMappingDTO {
 
     @JsonProperty("fullName")
     private String fullName;
-
-    // TODO save objects
-//    @Column
-//    private Object avatar;
 
     public static Builder newBuilder() {
         return new PartnerMappingDTO().new Builder();

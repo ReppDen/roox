@@ -24,8 +24,7 @@ public class UserServiceImpl implements UserService{
             throw new BadRequestException("Customer ID cannot be null");
         }
         if (ME_LITERAL.equalsIgnoreCase(id)) {
-            // TODO get current user
-            CustomerUserDetails principal = (CustomerUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            CustomerUserDetails principal = getCurrentUser();
             return customerRepository.findById(principal.getId());
         } else {
             if (!NumberUtils.isNumber(id)) {
@@ -33,6 +32,15 @@ public class UserServiceImpl implements UserService{
             }
             return customerRepository.findById(Long.parseLong(id));
         }
+    }
+
+    public CustomerUserDetails getCurrentUser() {
+        return (CustomerUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    @Override
+    public boolean isAllowedToProcess(String customerId) {
+        return ME_LITERAL.equals(customerId) || getCurrentUser().getId().toString().equals(customerId);
     }
 
 }

@@ -1,24 +1,16 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <body>
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
-</div>
 
+<a href="/customers/50/mappings/101/avatar">Customer 50, mapping 101 avatar</a><br/>
+Upload new avatar (does not override existing one)<br/>
 <div>
-    <form method="POST" enctype="multipart/form-data" action="/upload">
+    <form method="POST" enctype="multipart/form-data" action="/customers/50/mappings/101/avatar">
         <table>
             <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td>Name:</td><td><input type="text" name="name" /></td></tr>
             <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
         </table>
     </form>
-</div>
-
-<div>
-    <ul>
-        <li th:each="file : ${files}" th:text="${file}"></li>
-    </ul>
 </div>
 
 </body>

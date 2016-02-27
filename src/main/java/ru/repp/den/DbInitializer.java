@@ -1,8 +1,8 @@
 package ru.repp.den;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.repp.den.entity.Customer;
@@ -21,14 +21,14 @@ import java.util.Random;
 @Component
 public class DbInitializer {
 
-    public static final int CUSTOMERS_AMOUNT = 70;
-    public static final int MAPPINGS_AMOUNT = 20;
+    public static final int CUSTOMERS_AMOUNT = 10;
+    public static final int MAPPINGS_AMOUNT = 100;
 
     @Autowired
     CustomerRepository cr;
 
-//    @Autowired
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     PartnerMappingRepository pmr;
@@ -36,11 +36,16 @@ public class DbInitializer {
     @Autowired
     ApplicationContext appContext;
 
+    @Value("${roox.generator.create-test-data-on-startup}")
+    Boolean runGenerator;
 
     private Random r = new Random();
 
     @PostConstruct
     public void fillDb() throws IOException {
+        if (!runGenerator) {
+            return;
+        }
         String customerBaseName = "Customer full name ";
         String customerBaseLogin = "User";
 
@@ -48,7 +53,7 @@ public class DbInitializer {
 
             cr.save(Customer.newBuilder()
                     .setName(customerBaseName + i)
-                    .setActive(i % 2 == 0)
+                    .setActive(i  <= CUSTOMERS_AMOUNT / 2)
                     .setBalance(r.nextFloat() * 100)
                     .setPwdHash(passwordEncoder.encode("pass"))
                     .setLogin(customerBaseLogin + i)
@@ -59,7 +64,7 @@ public class DbInitializer {
             Customer c = cr.findByLogin(customerBaseLogin + (Math.abs(r.nextLong()) % CUSTOMERS_AMOUNT));
             PartnerMapping pm = PartnerMapping.newBuilder()
                     .setAccount("account" + i)
-                    .setFullName("External " + c.getName())
+                    .setFullName(c.getName() + " in other system")
                     .setPartnerId(Math.abs(r.nextLong()) % 1000)
                     .setCustomer(c)
                     .setAvatar(getRandomFileName())

@@ -15,11 +15,4 @@ public class RooxApplication {
     public static void main(String[] args) {
 		SpringApplication.run(RooxApplication.class, args);
 	}
-
-    /** todo list:
-     *
-     * restrict the logic to current user only
-     * use manual atomic sequence
-     *
-     */
 }

@@ -2,6 +2,9 @@ package ru.repp.den.exception;
 
 import java.util.Map;
 
+/**
+ * this class used by Exception handler to show exception details in a comprehensive format.
+ */
 public class ErrorJson {
 
     public Integer status;
