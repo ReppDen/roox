@@ -18,4 +18,8 @@ public interface PartnerMappingService {
     void deleteMapping(String id, Long mapId);
 
     PartnerMappingDTO getMappingById(String customerId, Long mapId);
+
+    void updateAvatarForMapping(String id, Long mapId, String fileName);
+
+    String getAvatarFileName(String id, Long mapId);
 }

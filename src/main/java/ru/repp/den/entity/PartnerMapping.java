@@ -1,9 +1,7 @@
 package ru.repp.den.entity;
 
-import com.fasterxml.jackson.databind.deser.BuilderBasedDeserializer;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 
@@ -29,9 +27,8 @@ public class PartnerMapping {
     @Column
     private String fullName;
 
-    // TODO save objects
-//    @Column
-//    private Object avatar;
+    @Column
+    private String avatar;
 
     public static Builder newBuilder() {
         return new PartnerMapping().new Builder();
@@ -47,6 +44,9 @@ public class PartnerMapping {
         private String account;
 
         private String fullName;
+
+        private String avatar;
+
 
         public Builder setId(Long id) {
             this.id = id;
@@ -73,6 +73,11 @@ public class PartnerMapping {
             return this;
         }
 
+        public Builder setAvatar(String avatar) {
+            this.avatar = avatar;
+            return this;
+        }
+
         public PartnerMapping build() {
             PartnerMapping pm = new PartnerMapping();
             pm.setId(id);
@@ -80,6 +85,7 @@ public class PartnerMapping {
             pm.setCustomer(customer);
             pm.setFullName(fullName);
             pm.setPartnerId(partnerId);
+            pm.setAvatar(avatar);
             return pm;
         }
     }

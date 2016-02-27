@@ -86,6 +86,23 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
 
     @Override
     public PartnerMappingDTO getMappingById(String customerId, Long mapId) {
+        return PartnerMappingConverter.toDTO(getPartnerMappingById(customerId, mapId));
+    }
+
+    @Override
+    public void updateAvatarForMapping(String id, Long mapId, String fileName) {
+        PartnerMapping pm = getPartnerMappingById(id, mapId);
+        pm.setAvatar(fileName);
+        pmr.save(pm);
+    }
+
+    @Override
+    public String getAvatarFileName(String id, Long mapId) {
+        PartnerMapping pm = getPartnerMappingById(id, mapId);
+        return pm.getAvatar();
+    }
+
+    private PartnerMapping getPartnerMappingById (String customerId, Long mapId) {
         if (mapId == null) {
             throw new RestClientException("Cannot get Partner mapping. Mapping ID is null");
         }
@@ -93,7 +110,6 @@ public class PartnerMappingServiceImpl implements PartnerMappingService{
         if (c == null) {
             throw new RestClientException("Cannot find mapping by ID. Customer not found for ID " + customerId);
         }
-        PartnerMapping pm = pmr.findOneByIdAndCustomerId(mapId, c.getId());
-        return PartnerMappingConverter.toDTO(pm);
+        return pmr.findOneByIdAndCustomerId(mapId, c.getId());
     }
 }
