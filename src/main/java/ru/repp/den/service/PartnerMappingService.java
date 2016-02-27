@@ -1,5 +1,6 @@
 package ru.repp.den.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.repp.den.dto.CustomerDTO;
 import ru.repp.den.dto.PartnerMappingDTO;
 import ru.repp.den.entity.PartnerMapping;
@@ -19,7 +20,11 @@ public interface PartnerMappingService {
 
     PartnerMappingDTO getMappingById(String customerId, Long mapId);
 
-    void updateAvatarForMapping(String id, Long mapId, String fileName);
+    void createAvatarForMapping(String id, Long mapId, MultipartFile file);
 
-    String getAvatarFileName(String id, Long mapId);
+    void deleteAvatarFromMapping(String id, Long mapId);
+
+    byte[] getAvatar(String id, Long mapId);
+
+    void updateAvatarForMapping(String id, Long mapId, MultipartFile file);
 }

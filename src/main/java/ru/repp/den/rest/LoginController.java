@@ -21,7 +21,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public String start(Model model){
+    public String home(Model model){
         return "index";
     }
 
