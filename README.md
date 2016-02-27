@@ -15,11 +15,12 @@ What you can find in this app:
 +  RESTful application
 
 What you will not find in this app (yet):
++  unit test was broken by the last major changes. Still under construction. (Coming really soon)
 +  there is no proper logging yet
 +  there is no UI... at all ... just REST API with JSON output
 
 How to run:
-* run the `java -jar RooxApplication.jar`
+* run the `java -jar build/RooxApplication.jar` from the root of the repository
 * * (Optional) build project using maven command `mvn clean install`. Then you need to run the `jar` from forder `target`
 * open <a href="localhost:8080">localhost</a> page
 * follow the instrustions on the home page
