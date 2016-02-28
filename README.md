@@ -4,7 +4,7 @@ This app is an implementation one of the test tasks that is have.
 Date of implementation: Feb 2016
 
 Description:
-- Russian
+- [Russian](Russian.txt)
 - English (coming soon)
 
 What you can find in this app:
