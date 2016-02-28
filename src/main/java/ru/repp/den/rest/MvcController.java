@@ -13,11 +13,6 @@ import java.util.Map;
 @Controller
 public class MvcController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/login")
-    public String loginPage(Model model){
-        return "login";
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model){
         return "index";
