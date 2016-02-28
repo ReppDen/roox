@@ -18,7 +18,7 @@ public class MvcController {
         return "index";
     }
 
-    @RequestMapping({ "/user", "/me" })
+    @RequestMapping(value = { "/user", "/me" }, method = RequestMethod.GET)
     @ResponseBody
     public Map<String, String> user(Principal principal) {
         Map<String, String> map = new LinkedHashMap<>();
@@ -26,7 +26,7 @@ public class MvcController {
         return map;
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String uploadForm() {
         return "uploadForm";
     }

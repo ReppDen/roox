@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     CustomerRepository customerRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Customer getCustomerById(String id) {
         if (id == null) {
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService{
         return (CustomerUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAllowedToProcess(String customerId) {
         return ME_LITERAL.equals(customerId) || getCurrentUser().getId().toString().equals(customerId);
