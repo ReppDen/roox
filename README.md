@@ -26,4 +26,4 @@ How to run:
 * follow the instrustions on the home page
 
 All pre-defined users has names `UserX` where `X` is number from 0 to 9. All users has the same password `pass`
-
+User6-9 is locked by default. you should not be ablw to login using this users.
