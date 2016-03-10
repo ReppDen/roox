@@ -11,13 +11,13 @@ The relation between Customer and Partner Mapping is bilateral, one-to-many.
 All identifiers in the database are sequential. It means that the ID define the unique object in the database, it can not be two different objects of different classes with a single identifier.
 
 Required:
-- create a REST service, that allows the user work with the customers and their partner mappings. For customer - read only. For partner mapping - default CRUP implementation.
+- create a REST service, that allows the user work with the customers and their partner mappings. For customer - read only. For partner mapping - default CRUD implementation.
 - the customer may be addressed in URL using customer ID or a string "@me". In this case the currently logged customer should be used and received from authentication level.
 - the data should be stored in the relational database (it is allowed to user "in-memory" database);
 - the customer is allowed to work only with his own partner mappings.
 - an authentication token is passed in the Authorization header
 
-A method of addressing resources - up to you. But you should take to the consideration the relational data structure. All resources  are "going" from the subscriber.
+A method of addressing resources - up to you. But you should take to the consideration the relational data structure. All resources  are "going" from the customer.
 An exception handling method - up to you.
 
 Use Spring MVC for controllers and services. For DAO layer please use JPA.
